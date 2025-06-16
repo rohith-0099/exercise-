@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Stream - Inspired by Spotify</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-black text-gray-100 h-screen flex flex-col">
+
+    <div class="flex flex-1 overflow-hidden">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-black p-4 flex flex-col justify-between hidden md:flex">
+            <div>
+                <div class="mb-6">
+                    <!-- Placeholder for Logo -->
+                    <h1 class="text-2xl font-bold text-green-500 rounded-lg p-2 text-center">Music Stream</h1>
+                </div>
+                <nav class="space-y-2">
+                    <a href="#" class="flex items-center p-3 text-gray-100 hover:text-white bg-gray-800 rounded-lg transition duration-200" onclick="loadSection('home')">
+                        <i class="fas fa-home mr-3"></i> Home
+                    </a>
+                    <a href="#" class="flex items-center p-3 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition duration-200" onclick="loadSection('search')">
+                        <i class="fas fa-search mr-3"></i> Search
+                    </a>
+                    <a href="#" class="flex items-center p-3 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition duration-200" onclick="loadSection('library')">
+                        <i class="fas fa-book-open mr-3"></i> Your Library
+                    </a>
+                </nav>
+                <div class="mt-8 border-t border-gray-700 pt-4">
+                    <h2 class="text-xs text-gray-400 uppercase tracking-widest mb-2">Playlists</h2>
+                    <nav class="space-y-2">
+                        <a href="#" class="flex items-center p-3 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition duration-200" onclick="loadPlaylist('Daily Mix 1')">
+                            <i class="fas fa-plus-square mr-3"></i> Create Playlist
+                        </a>
+                        <a href="#" class="flex items-center p-3 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition duration-200" onclick="loadPlaylist('Liked Songs')">
+                            <i class="fas fa-heart mr-3"></i> Liked Songs
+                        </a>
+                        <!-- Example Playlists -->
+                        <a href="#" class="flex items-center p-3 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition duration-200" onclick="loadPlaylist('Chill Vibes')">
+                            Chill Vibes
+                        </a>
+                        <a href="#" class="flex items-center p-3 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition duration-200" onclick="loadPlaylist('Workout Mix')">
+                            Workout Mix
+                        </a>
+                        <a href="#" class="flex items-center p-3 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition duration-200" onclick="loadPlaylist('Focus Tunes')">
+                            Focus Tunes
+                        </a>
+                    </nav>
+                </div>
+            </div>
+            <!-- User Profile/Settings at the bottom of the sidebar -->
+            <div class="border-t border-gray-700 pt-4">
+                <a href="#" class="flex items-center p-3 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition duration-200">
+                    <img src="https://placehold.co/32x32/1DB954/FFFFFF?text=P" alt="User Avatar" class="w-8 h-8 rounded-full mr-3">
+                    <span class="font-medium">User Name</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 bg-gray-900 overflow-y-auto rounded-lg m-2 p-6 md:p-8">
+            <div id="content-area">
+                <!-- Content will be loaded here dynamically by JavaScript -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Mobile Navigation (hidden on desktop) -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-800 p-2 flex justify-around md:hidden z-10">
+        <a href="#" class="flex flex-col items-center text-xs text-gray-400 hover:text-white" onclick="loadSection('home')">
+            <i class="fas fa-home text-xl mb-1"></i>
+            Home
+        </a>
+        <a href="#" class="flex flex-col items-center text-xs text-gray-400 hover:text-white" onclick="loadSection('search')">
+            <i class="fas fa-search text-xl mb-1"></i>
+            Search
+        </a>
+        <a href="#" class="flex flex-col items-center text-xs text-gray-400 hover:text-white" onclick="loadSection('library')">
+            <i class="fas fa-book-open text-xl mb-1"></i>
+            Library
+        </a>
+    </nav>
+
+    <!-- Music Player Bar -->
+    <div class="bg-gray-800 border-t border-gray-700 p-4 flex items-center justify-between z-20">
+        <div class="flex items-center w-1/4">
+            <img id="current-album-art" src="https://placehold.co/50x50/1DB954/FFFFFF?text=NP" alt="Now Playing Album Art" class="w-12 h-12 rounded-md mr-4 shadow-md">
+            <div>
+                <h4 id="current-song-title" class="text-sm font-semibold text-white truncate">Song Title</h4>
+                <p id="current-artist-name" class="text-xs text-gray-400 truncate">Artist Name</p>
+            </div>
+            <button class="ml-4 text-gray-400 hover:text-green-500 transition duration-200">
+                <i class="fas fa-heart text-lg"></i>
+            </button>
+        </div>
+
+        <div class="flex flex-col items-center w-1/2">
+            <div class="flex items-center space-x-6 mb-2">
+                <button class="text-gray-400 hover:text-white transition duration-200">
+                    <i class="fas fa-random text-lg"></i>
+                </button>
+                <button class="text-gray-400 hover:text-white transition duration-200">
+                    <i class="fas fa-step-backward text-xl"></i>
+                </button>
+                <button id="play-pause-btn" class="text-green-500 hover:text-green-400 transition duration-200 text-3xl">
+                    <i class="fas fa-play-circle"></i>
+                </button>
+                <button class="text-gray-400 hover:text-white transition duration-200">
+                    <i class="fas fa-step-forward text-xl"></i>
+                </button>
+                <button class="text-gray-400 hover:text-white transition duration-200">
+                    <i class="fas fa-sync-alt text-lg"></i>
+                </button>
+            </div>
+            <div class="flex items-center w-full">
+                <span id="current-time" class="text-xs text-gray-400 mr-2">0:00</span>
+                <div class="flex-1 h-1 bg-gray-600 rounded-full cursor-pointer relative" id="progress-bar-container">
+                    <div id="progress-bar" class="h-full bg-green-500 rounded-full" style="width: 0%;"></div>
+                    <div class="absolute -top-1/2 -mt-px w-3 h-3 bg-white rounded-full hidden" id="progress-thumb"></div>
+                </div>
+                <span id="duration-time" class="text-xs text-gray-400 ml-2">3:30</span>
+            </div>
+        </div>
+
+        <div class="flex items-center justify-end w-1/4 space-x-4">
+            <button class="text-gray-400 hover:text-white transition duration-200">
+                <i class="fas fa-volume-up text-lg"></i>
+            </button>
+            <input type="range" id="volume-slider" min="0" max="100" value="70" class="w-24 h-1 bg-gray-600 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow-lg [&::-webkit-slider-thumb]:-mt-1 [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:rounded-full">
+            <button class="text-gray-400 hover:text-white transition duration-200">
+                <i class="fas fa-list text-lg"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Link to external JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>

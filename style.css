@@ -1,0 +1,27 @@
+/* style.css */
+
+/* Custom scrollbar for better aesthetics on dark theme */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #282828;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+    background: #535353;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #888;
+}
+
+/* Base font for the body (defined in HTML head, but here for completeness if externalized) */
+body {
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Additional custom styles can go here if needed */
