@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Music Stream - Inspired by Spotify</title>
     <!-- Tailwind CSS CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Inter Font -->
@@ -66,7 +66,7 @@
         </aside>
 
         <!-- Main Content Area -->
-        <main class="flex-1 bg-gray-900 overflow-y-auto rounded-lg m-2 p-6 md:p-8">
+        <main id="main-content-area" class="flex-1 bg-gray-900 overflow-y-auto rounded-lg m-2 p-6 md:p-8 transform transition-all duration-500 ease-in-out opacity-0 translate-y-4">
             <div id="content-area">
                 <!-- Content will be loaded here dynamically by JavaScript -->
             </div>
@@ -122,9 +122,9 @@
             </div>
             <div class="flex items-center w-full">
                 <span id="current-time" class="text-xs text-gray-400 mr-2">0:00</span>
-                <div class="flex-1 h-1 bg-gray-600 rounded-full cursor-pointer relative" id="progress-bar-container">
-                    <div id="progress-bar" class="h-full bg-green-500 rounded-full" style="width: 0%;"></div>
-                    <div class="absolute -top-1/2 -mt-px w-3 h-3 bg-white rounded-full hidden" id="progress-thumb"></div>
+                <div class="flex-1 h-1 bg-gray-600 rounded-full cursor-pointer relative group" id="progress-bar-container">
+                    <div id="progress-bar" class="h-full bg-green-500 rounded-full transition-all duration-100 ease-linear" style="width: 0%;"></div>
+                    <div class="absolute -top-1/2 -mt-px w-3 h-3 bg-white rounded-full transition-opacity duration-200 opacity-0 group-hover:opacity-100" id="progress-thumb"></div>
                 </div>
                 <span id="duration-time" class="text-xs text-gray-400 ml-2">3:30</span>
             </div>
